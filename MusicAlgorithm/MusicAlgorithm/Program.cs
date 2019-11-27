@@ -11,17 +11,23 @@ namespace MusicAlgorithm
     {
         static void Main(string[] args)
         {
-            SpotifyAPI spotify = new SpotifyAPI("BQDA7RGEeZBnOUeJt53mdKX44P0VUuLPh8vhMKTJgkjKV74lyI29VqRmHu9HjSrRpMTZA2Xdn9JXn4_R2dv8awCkTdpGpl4Ty-AuxL70WyVfY0bUv1a1FDzfSasG78puCGitO-q2xiDF2JJ7eY5XgOHb8K0Ogj7SwA");
-
+            SpotifyAPI spotify = new SpotifyAPI("BQByIoz7VyOwosoRtO3Si3Y5cERSjQ5xs8N8bUWoweoNJKlSsAgTkpEMSybiOIehT6GZOLDMZq1lAU-qAlfZqXya0NBRJAFPPnmSDL2AiLsbLywmUMVJmsxDrhSJjEqxUtcyuH199aHHjAia0d3jm4iojQ4qQlOF7w");
+            String filepath = @"C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\Resources\CurrentTrack.json";
             String input = "";
             while (input != "stop")
             {
                 input = Console.ReadLine();
                 if (input == "try")
                 {
-                    spotify.getRequest("https://api.spotify.com/v1/me/player/currently-playing?market=NL");
+                    spotify.getCurrentTrack();
+                    Console.ReadLine();
+                    spotify.getTrackFeatures(filepath);
+                    Console.WriteLine();
+                    spotify.getTrackAnalysis(filepath);
                 }
             }
+            Song song = new Song(spotify.getTrackName(), spotify.getArtistName(), spotify.getDanceAbility(), spotify.getEnergy(), spotify.getBPM());
+            Console.ReadLine();
         }
     }
 }
