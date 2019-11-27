@@ -1,0 +1,13 @@
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\obj\Debug\netcoreapp3.0\MusicAlgorithm.csprojAssemblyReference.cache
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\obj\Debug\netcoreapp3.0\MusicAlgorithm.AssemblyInfoInputs.cache
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\obj\Debug\netcoreapp3.0\MusicAlgorithm.AssemblyInfo.cs
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\bin\Debug\netcoreapp3.0\MusicAlgorithm.exe
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\bin\Debug\netcoreapp3.0\MusicAlgorithm.deps.json
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\bin\Debug\netcoreapp3.0\MusicAlgorithm.runtimeconfig.json
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\bin\Debug\netcoreapp3.0\MusicAlgorithm.runtimeconfig.dev.json
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\bin\Debug\netcoreapp3.0\MusicAlgorithm.dll
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\bin\Debug\netcoreapp3.0\MusicAlgorithm.pdb
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\obj\Debug\netcoreapp3.0\MusicAlgorithm.dll
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\obj\Debug\netcoreapp3.0\MusicAlgorithm.pdb
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\obj\Debug\netcoreapp3.0\MusicAlgorithm.csproj.CopyComplete
