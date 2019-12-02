@@ -2,6 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.0": {
+<<<<<<< HEAD
       "EmbedIO/2.9.2": {
         "type": "package",
         "dependencies": {
@@ -8139,17 +8140,64 @@
         "lib/netstandard2.0/Unosquare.Swan.Lite.xml",
         "unosquare.swan.lite.1.3.1.nupkg.sha512",
         "unosquare.swan.lite.nuspec"
+=======
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Newtonsoft.Json/12.0.3": {
+      "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "type": "package",
+      "path": "newtonsoft.json/12.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+>>>>>>> Development
       ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
+<<<<<<< HEAD
       "Microsoft.AspNet.Mvc >= 5.2.7",
       "Microsoft.AspNetCore.Http.Extensions >= 2.2.0",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
       "Newtonsoft.Json >= 12.0.3",
       "SpotifyAPI.Web >= 4.2.2",
       "SpotifyAPI.Web.Auth >= 4.2.2"
+=======
+      "Newtonsoft.Json >= 12.0.3"
+>>>>>>> Development
     ]
   },
   "packageFolders": {
@@ -8189,6 +8237,7 @@
     "frameworks": {
       "netcoreapp3.0": {
         "dependencies": {
+<<<<<<< HEAD
           "Microsoft.AspNet.Mvc": {
             "target": "Package",
             "version": "[5.2.7, )"
@@ -8212,6 +8261,11 @@
           "SpotifyAPI.Web.Auth": {
             "target": "Package",
             "version": "[4.2.2, )"
+=======
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[12.0.3, )"
+>>>>>>> Development
           }
         },
         "imports": [
@@ -8229,6 +8283,7 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.101\\RuntimeIdentifierGraph.json"
       }
     }
@@ -8275,4 +8330,10 @@
       ]
     }
   ]
+=======
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+>>>>>>> Development
 }

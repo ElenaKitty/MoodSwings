@@ -1,12 +1,18 @@
 ﻿using System;
+<<<<<<< HEAD
 using System.Net;
+=======
+>>>>>>> Development
 using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+<<<<<<< HEAD
 using System.Text;
 using System.Threading.Tasks;
 
+=======
+>>>>>>> Development
 namespace MusicAlgorithm
 {
     class SpotifyAPI
@@ -108,6 +114,7 @@ namespace MusicAlgorithm
             }
         }
 
+<<<<<<< HEAD
         public dynamic getData(String data)
         {
             dynamic returnAble = null;
@@ -161,6 +168,65 @@ namespace MusicAlgorithm
                     break;
             }
             return returnAble;
+=======
+        public String getArtistName()
+        {
+            using (StreamReader file = File.OpenText(@"C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\Resources\CurrentTrack.json"))
+            {
+                JObject json = (JObject)serializer.Deserialize(file, typeof(JObject));
+                dynamic jsonData = json;
+                String name = jsonData.item.album.artists[0].name;
+                return name;
+            }
+        }
+
+        public String getTrackName()
+        {
+            using (StreamReader file = File.OpenText(@"C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\Resources\CurrentTrack.json"))
+            {
+                JObject json = (JObject)serializer.Deserialize(file, typeof(JObject));
+                dynamic jsonData = json;
+                String name = jsonData.item.name;
+                return name;
+            }
+
+        }
+
+        public float getDanceAbility()
+        {
+            using (StreamReader file = File.OpenText(@"C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\Resources\TrackFeatures.json"))
+            {
+                JObject json = (JObject)serializer.Deserialize(file, typeof(JObject));
+                dynamic jsonData = json;
+                float danceability = jsonData.danceability;
+                return danceability;
+            }
+
+        }
+
+        public float getEnergy()
+        {
+            using (StreamReader file = File.OpenText(@"C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\Resources\TrackFeatures.json"))
+            {
+                JObject json = (JObject)serializer.Deserialize(file, typeof(JObject));
+                dynamic jsonData = json;
+                float energy = jsonData.energy;
+                return energy;
+            }
+
+        }
+
+        public float getBPM()
+        {
+            using (StreamReader file = File.OpenText(@"C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\Resources\TrackFeatures.json"))
+            {
+                JObject json = (JObject)serializer.Deserialize(file, typeof(JObject));
+                dynamic jsonData = json;
+                float tempo = jsonData.tempo;
+                return tempo;
+            }
+
+>>>>>>> Development
         }
     }
 }
