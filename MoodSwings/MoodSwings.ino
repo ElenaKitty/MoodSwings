@@ -11,12 +11,14 @@ const int bluePin = 11;
 int r = 0;
 int g = 0;
 int b = 0;
-int blinkSpeed = 200;
-int fadeSpeed = 1;
+int Speed = 50;
 
 String receiveVal;   
 bool playing = true;
 String prevAction = "";
+
+String wordVal;
+String numberVal;
 
 SoftwareSerial wifi(8,7);
 
@@ -45,21 +47,31 @@ void setup()
 }
 //255 = 0; INVERTED COLOR VALUES
 void loop() 
-{       
+{   
   if(wifi.available() > 0)  
   {          
+    wordVal = "";
+    numberVal ="";
     receiveVal = wifi.readString();
-    if(receiveVal.substring(11,15) == "fade")
+    for(int i = 11; i < receiveVal.length()-9; i++)
     {
-     fadeColors(fadeSpeed);
+      if(isLowerCase(receiveVal.charAt(i)))
+      {
+        wordVal += receiveVal.charAt(i);      
+      }
+      else if(isDigit(receiveVal.charAt(i)))
+      {
+        numberVal += receiveVal.charAt(i);
+      }
     }
-    if(receiveVal.substring(11,16) == "blink")
+    Speed = numberVal.toInt();
+    if(wordVal == "fade")
     {
-     blinkLight(blinkSpeed);
+      fadeColors(Speed);
     }
-    if(receiveVal.substring(11,20) == "christmas")
+    else if(wordVal == "blink")
     {
-      christmasLight(blinkSpeed);
+     blinkLight(Speed);
     }
   }           
   
@@ -73,15 +85,11 @@ void loop()
     playing = !playing;
     if(prevAction == "blink")
     {
-      blinkLight(blinkSpeed);
+      blinkLight(Speed);
     }
     else if(prevAction == "fade")
     {
-      fadeColors(fadeSpeed);
-    }
-    else if(prevAction == "christmas")
-    {
-      christmasLight(blinkSpeed);
+      fadeColors(Speed);
     }
   }
   if(digitalRead(nextPin))
@@ -89,27 +97,6 @@ void loop()
     while(digitalRead(nextPin));
   }
 }
-void christmasLight(int blinkSpeed)
-{
-  playing = true;
-  while(playing)
-  {
-    digitalWrite(redPin, HIGH);
-    digitalWrite(greenPin, LOW);
-    delay(blinkSpeed);
-    digitalWrite(greenPin, HIGH);
-    digitalWrite(redPin, LOW);
-    delay(blinkSpeed);
-    if(digitalRead(playPin))
-    {
-      pauseAction();
-      noLight();
-      prevAction = "christmas";
-         break;
-    }
-  }
-}
-
 void blinkLight(int blinkSpeed)
 {
   playing = true;
@@ -184,7 +171,8 @@ void pauseAction()
     noLight();
 }
 
-String sendToWifi(String command, const int timeout, boolean debug){
+String sendToWifi(String command, const int timeout, boolean debug)
+{
  String response = "";
  wifi.println(command); // send the read character to the esp8266
  long int time = millis();
