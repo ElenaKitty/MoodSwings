@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Net.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.IO;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http.Extensions;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace MusicAlgorithm
 {
@@ -17,49 +17,42 @@ namespace MusicAlgorithm
     {
         static void Main(string[] args)
         {
-            //AuthorizationCodeAuth auth = new AuthorizationCodeAuth(
-            //"5dc276b9432a4b55b0e1070fa5569441",
-            //"4b3ee52fd2ef44d4a6ae7a51520d8170",
-            //"https://mysite.com/callback/",
-            //"https://mysite.com/callback/",
-            //Scope.PlaylistReadPrivate | Scope.UserReadCurrentlyPlaying
-            //);
+            AuthorizationCodeAuth auth = new AuthorizationCodeAuth(
+            "5dc276b9432a4b55b0e1070fa5569441",
+            "4b3ee52fd2ef44d4a6ae7a51520d8170",
+            "https://mysite.com/callback/",
+            "https://mysite.com/callback/",
+            Scope.PlaylistReadPrivate | Scope.UserReadCurrentlyPlaying
+            );
 
-            //auth.AuthReceived += async (sender, payload) =>
-            //{
-            //    auth.Stop();
-            //    Token token = await auth.ExchangeCode(payload.Code);
-            //    SpotifyWebAPI api = new SpotifyWebAPI()
-            //    {
-            //        TokenType = token.TokenType,
-            //        AccessToken = token.AccessToken,
-            //    };
-            //    // Do requests with API client
-
-            //};
-            //auth.Start(); // Starts an internal HTTP Server
+            auth.AuthReceived += async (sender, payload) =>
+            {
+                auth.Stop();
+                Token token = await auth.ExchangeCode(payload.Code);
+                SpotifyWebAPI api = new SpotifyWebAPI()
+                {
+                    TokenType = token.TokenType,
+                    AccessToken = token.AccessToken
+                };
+                // Do requests with API client
+            };
+            auth.Start(); // Starts an internal HTTP Server
             //auth.OpenBrowser();
 
-
-            SpotifyAPI spotify = new SpotifyAPI("BQAEk1iDDYaaM08-Wxkr9ByQdyUWb609bGSfLtNXjbpajYnOZKkDGG7qG6n-lReYdLOZhujoOL-djyJ76pEQ7YmGwj8T5fK3So-mYGjVFy5pM1x-MpiOU3_D62duvHIfpCWaOihHTgV9t_a7RovQaMb8anlsUtIgKg");
-            String filepath = @"C:\Users\bodhi\source\repos\MusicAlgorithm\MusicAlgorithm\Resources\CurrentTrack.json";
+            String filepath = @"..\..\..\Resources\CurrentTrack.json";
             String input = "";
+            SpotifyAPI spotify = new SpotifyAPI("BQCDeeQ8S-h3nL8anfCvPkfuLwAfI8HonORoHWUXn2eNPQripA1X8GBxKnzWdZRPQhZuVt0OHrJ5vyGi_ZSkWC7H1PMP-GkLU2aAHl0WkP0p4JPVeGl_MMBHE289ZuVuiKMRdB8FId2iL4UCQzO04ayAqQKXh9aaK5U7hWOvHRC18A");
             while (input != "stop")
             {
                 input = Console.ReadLine();
                 if (input == "try")
                 {
-
-                    spotify.getCurrentTrack();
-                    Console.ReadLine();
-                    spotify.getTrackFeatures(filepath);
-                    Console.ReadLine();
-                    spotify.getTrackAnalysis(filepath);
-                    Console.ReadLine();
+                    spotify.spotifyAPIRequest(filepath);
+                    Console.WriteLine();
 
                 }
+                spotify.playerControl(input);
             }
-            Console.ReadLine();
         }
     }
 }
