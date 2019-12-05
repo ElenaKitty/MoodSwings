@@ -39,7 +39,7 @@ namespace MusicAlgorithm
                     using (HttpContent content = response.Content)
                     {
                         String myContent = await content.ReadAsStringAsync();
-                        using (StreamWriter file = File.CreateText(@"..\..\..\Resources\CurrentTrack.json"))
+                        using (StreamWriter file = File.CreateText(@"Resources\CurrentTrack.json"))
                         {
                             if (myContent != "")
                             {
@@ -73,7 +73,7 @@ namespace MusicAlgorithm
                         using (HttpContent content = response.Content)
                         {
                             String myContent = await content.ReadAsStringAsync();
-                            using (StreamWriter newFile = File.CreateText(@"..\..\..\Resources\TrackFeatures.json"))
+                            using (StreamWriter jsonFile = File.CreateText(@"Resources\TrackFeatures.json"))
                             {
                                 JObject trackFeaturesJson = JObject.Parse(myContent);
                                 dynamic trackFeaturesData = trackFeaturesJson;
@@ -104,7 +104,7 @@ namespace MusicAlgorithm
                         using (HttpContent content = response.Content)
                         {
                             String myContent = await content.ReadAsStringAsync();
-                            using (StreamWriter newFile = File.CreateText(@"..\..\..\Resources\TrackAnalysis.json"))
+                            using (StreamWriter jsonFile = File.CreateText(@"Resources\TrackAnalysis.json"))
                             {
                                 JObject trackAnalysisJson = JObject.Parse(myContent);
                                 dynamic trackAnalysisData = trackAnalysisJson;
@@ -121,13 +121,8 @@ namespace MusicAlgorithm
         {
             using (StreamReader file = File.OpenText(filepath))
             {
-                JObject currentTrackJson = (JObject)serializer.Deserialize(file, typeof(JObject));
-                dynamic currentTrackData = currentTrackJson;
-                String id = currentTrackData.context.href;
-                using (HttpClient client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", OAuth);
-                    using (HttpResponseMessage response = await client.GetAsync(id))
+                case "artist":
+                    using (StreamReader file = File.OpenText(@"Resources\CurrentTrack.json"))
                     {
                         using (HttpContent content = response.Content)
                         {
@@ -188,16 +183,31 @@ namespace MusicAlgorithm
                     await pauseTrack();
                     break;
 
-                case "resume":
-                    await resumeTrack();
+                case "track":
+                    using (StreamReader file = File.OpenText(@"Resources\CurrentTrack.json"))
+                    {
+                        JObject json = (JObject)serializer.Deserialize(file, typeof(JObject));
+                        dynamic jsonData = json;
+                        returnAble = jsonData.item.name;
+                    }
                     break;
 
-                case "next":
-                    await nextTrack();
+                case "danceability":
+                    using (StreamReader file = File.OpenText(@"Resources\TrackFeatures.json"))
+                    {
+                        JObject json = (JObject)serializer.Deserialize(file, typeof(JObject));
+                        dynamic jsonData = json;
+                        returnAble = jsonData.danceability;
+                    }
                     break;
 
-                case "previous":
-                    await previousTrack();
+                case "energy":
+                    using (StreamReader file = File.OpenText(@"Resources\TrackFeatures.json"))
+                    {
+                        JObject json = (JObject)serializer.Deserialize(file, typeof(JObject));
+                        dynamic jsonData = json;
+                        returnAble = jsonData.energy;
+                    }
                     break;
             }
         }
@@ -211,41 +221,14 @@ namespace MusicAlgorithm
             await getArtist(filepath);
         }
 
-        // this method returns a values from jsons.
-        public dynamic getData(String data)
-        {
-            dynamic returnAble = null;
-            using (StreamReader currentTrackFile = File.OpenText(@"..\..\..\Resources\CurrentTrack.json"))
-            using (StreamReader trackFeaturesFile = File.OpenText(@"..\..\..\Resources\TrackFeatures.json"))
-            {
-                JObject currentTrackJson = (JObject)serializer.Deserialize(currentTrackFile, typeof(JObject));
-                dynamic currentTrackData = currentTrackJson;
-                JObject trackFeaturesJson = (JObject)serializer.Deserialize(trackFeaturesFile, typeof(JObject));
-                dynamic trackFeaturesData = trackFeaturesJson;
-                switch (data)
-                {
-
-                    case "artist":
-                        returnAble = currentTrackData.item.album.artists[0].name;
-                        break;
-
-                    case "track":
-                        returnAble = currentTrackData.item.name;
-                        break;
-
-                    case "danceability":
-                        returnAble = trackFeaturesData.danceability;
-                        break;
-
-                    case "energy":
-                        returnAble = trackFeaturesData.energy;
-                        break;
-
-
-                    case "bpm":
-                        returnAble = trackFeaturesData.tempo;
-                        break;
-                }
+                case "bpm":
+                    using (StreamReader file = File.OpenText(@"Resources\TrackFeatures.json"))
+                    {
+                        JObject json = (JObject)serializer.Deserialize(file, typeof(JObject));
+                        dynamic jsonData = json;
+                        returnAble = jsonData.tempo;
+                    }
+                    break;
             }
             return returnAble;
         }

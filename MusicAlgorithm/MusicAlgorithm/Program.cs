@@ -39,7 +39,9 @@ namespace MusicAlgorithm
             auth.Start(); // Starts an internal HTTP Server
             //auth.OpenBrowser();
 
-            String filepath = @"..\..\..\Resources\CurrentTrack.json";
+
+            SpotifyAPI spotify = new SpotifyAPI("BQDOkftsn8wOrHI-TaDDIIlVrN5Ww_F948licvQv4E4_mOajH86du5QCDYFyjdM232eqmn9VY95RLXxW2Rghmp3adYqex4joQWf52Ts9wyMXgzL8fWRVF8SsVOevq-WIjg7Zyiye");
+            String filepath = @"Resources\CurrentTrack.json";
             String input = "";
             SpotifyAPI spotify = new SpotifyAPI("BQCDeeQ8S-h3nL8anfCvPkfuLwAfI8HonORoHWUXn2eNPQripA1X8GBxKnzWdZRPQhZuVt0OHrJ5vyGi_ZSkWC7H1PMP-GkLU2aAHl0WkP0p4JPVeGl_MMBHE289ZuVuiKMRdB8FId2iL4UCQzO04ayAqQKXh9aaK5U7hWOvHRC18A");
             while (input != "stop")

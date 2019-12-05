@@ -1,0 +1,105 @@
+{
+  "timestamp": 1574846050123,
+  "context": {
+    "external_urls": {
+      "spotify": "https://open.spotify.com/album/4g1ZRSobMefqF6nelkgibi"
+    },
+    "href": "https://api.spotify.com/v1/albums/4g1ZRSobMefqF6nelkgibi",
+    "type": "album",
+    "uri": "spotify:album:4g1ZRSobMefqF6nelkgibi"
+  },
+  "progress_ms": 49406,
+  "item": {
+    "album": {
+      "album_type": "album",
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/246dkjvS1zLTtiykXe5h60"
+          },
+          "href": "https://api.spotify.com/v1/artists/246dkjvS1zLTtiykXe5h60",
+          "id": "246dkjvS1zLTtiykXe5h60",
+          "name": "Post Malone",
+          "type": "artist",
+          "uri": "spotify:artist:246dkjvS1zLTtiykXe5h60"
+        }
+      ],
+      "external_urls": {
+        "spotify": "https://open.spotify.com/album/4g1ZRSobMefqF6nelkgibi"
+      },
+      "href": "https://api.spotify.com/v1/albums/4g1ZRSobMefqF6nelkgibi",
+      "id": "4g1ZRSobMefqF6nelkgibi",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/94105e271865c28853bfb7b44b38353a2fea45d6",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://i.scdn.co/image/e2e8a627df64b4824c9f2bb8e69e44f975200abb",
+          "width": 300
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/a7f2cc3d9b653ac116a3666cc3aaf01880aab8bd",
+          "width": 64
+        }
+      ],
+      "name": "Hollywood's Bleeding",
+      "release_date": "2019-09-06",
+      "release_date_precision": "day",
+      "total_tracks": 17,
+      "type": "album",
+      "uri": "spotify:album:4g1ZRSobMefqF6nelkgibi"
+    },
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/246dkjvS1zLTtiykXe5h60"
+        },
+        "href": "https://api.spotify.com/v1/artists/246dkjvS1zLTtiykXe5h60",
+        "id": "246dkjvS1zLTtiykXe5h60",
+        "name": "Post Malone",
+        "type": "artist",
+        "uri": "spotify:artist:246dkjvS1zLTtiykXe5h60"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/50co4Is1HCEo8bhOyUWKpn"
+        },
+        "href": "https://api.spotify.com/v1/artists/50co4Is1HCEo8bhOyUWKpn",
+        "id": "50co4Is1HCEo8bhOyUWKpn",
+        "name": "Young Thug",
+        "type": "artist",
+        "uri": "spotify:artist:50co4Is1HCEo8bhOyUWKpn"
+      }
+    ],
+    "disc_number": 1,
+    "duration_ms": 174853,
+    "explicit": true,
+    "external_ids": {
+      "isrc": "USUM71912330"
+    },
+    "external_urls": {
+      "spotify": "https://open.spotify.com/track/0t3ZvGKlmYmVsDzBJAXK8C"
+    },
+    "href": "https://api.spotify.com/v1/tracks/0t3ZvGKlmYmVsDzBJAXK8C",
+    "id": "0t3ZvGKlmYmVsDzBJAXK8C",
+    "is_local": false,
+    "is_playable": true,
+    "name": "Goodbyes (feat. Young Thug)",
+    "popularity": 93,
+    "preview_url": "https://p.scdn.co/mp3-preview/a2cdc9a39562c5ccc46299eb3f11c7d0fc50d08b?cid=774b29d4f13844c495f206cafdad9c86",
+    "track_number": 14,
+    "type": "track",
+    "uri": "spotify:track:0t3ZvGKlmYmVsDzBJAXK8C"
+  },
+  "currently_playing_type": "track",
+  "actions": {
+    "disallows": {
+      "resuming": true
+    }
+  },
+  "is_playing": true
+}
