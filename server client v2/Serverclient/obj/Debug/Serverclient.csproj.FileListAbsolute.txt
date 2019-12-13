@@ -1,0 +1,24 @@
+C:\Users\Niels\source\repos\Serverclient\obj\Debug\Serverclient.csprojAssemblyReference.cache
+C:\Users\Niels\source\repos\Serverclient\obj\Debug\Serverclient.Serverclientside.resources
+C:\Users\Niels\source\repos\Serverclient\obj\Debug\Serverclient.Properties.Resources.resources
+C:\Users\Niels\source\repos\Serverclient\obj\Debug\Serverclient.csproj.GenerateResource.cache
+C:\Users\Niels\source\repos\Serverclient\bin\Debug\Serverclient.exe.config
+C:\Users\Niels\source\repos\Serverclient\bin\Debug\Serverclient.exe
+C:\Users\Niels\source\repos\Serverclient\bin\Debug\Serverclient.pdb
+C:\Users\Niels\source\repos\Serverclient\bin\Debug\SimpleTCP.dll
+C:\Users\Niels\source\repos\Serverclient\obj\Debug\Serverclient.csproj.CopyComplete
+C:\Users\Niels\source\repos\Serverclient\obj\Debug\Serverclient.exe
+C:\Users\Niels\source\repos\Serverclient\obj\Debug\Serverclient.pdb
+C:\Users\Niels\source\repos\Serverclient\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Niels\source\repos\Serverclient\bin\Debug\Newtonsoft.Json.xml
+D:\GitHub\MoodSwings\server client v2\Serverclient\bin\Debug\Serverclient.exe.config
+D:\GitHub\MoodSwings\server client v2\Serverclient\bin\Debug\Serverclient.exe
+D:\GitHub\MoodSwings\server client v2\Serverclient\bin\Debug\Serverclient.pdb
+D:\GitHub\MoodSwings\server client v2\Serverclient\bin\Debug\Newtonsoft.Json.xml
+D:\GitHub\MoodSwings\server client v2\Serverclient\obj\Debug\Serverclient.csprojAssemblyReference.cache
+D:\GitHub\MoodSwings\server client v2\Serverclient\obj\Debug\Serverclient.Serverclientside.resources
+D:\GitHub\MoodSwings\server client v2\Serverclient\obj\Debug\Serverclient.Properties.Resources.resources
+D:\GitHub\MoodSwings\server client v2\Serverclient\obj\Debug\Serverclient.csproj.GenerateResource.cache
+D:\GitHub\MoodSwings\server client v2\Serverclient\obj\Debug\Serverclient.csproj.CopyComplete
+D:\GitHub\MoodSwings\server client v2\Serverclient\obj\Debug\Serverclient.exe
+D:\GitHub\MoodSwings\server client v2\Serverclient\obj\Debug\Serverclient.pdb

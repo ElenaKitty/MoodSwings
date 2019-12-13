@@ -1,0 +1,28 @@
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\obj\Debug\SpotifyAPI.NET Framework.csprojAssemblyReference.cache
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\SpotifyAPI.NET Framework.exe.config
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\SpotifyAPI.NET Framework.exe
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\SpotifyAPI.NET Framework.pdb
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\Newtonsoft.Json.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\Newtonsoft.Json.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\obj\Debug\SpotifyAPI.NET Framework.csproj.CopyComplete
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\obj\Debug\SpotifyAPI.NET Framework.exe
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\obj\Debug\SpotifyAPI.NET Framework.pdb
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\Microsoft.AspNetCore.Http.Abstractions.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\Microsoft.Extensions.Primitives.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Buffers.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Memory.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\WebDriver.dll
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\Microsoft.AspNetCore.Http.Abstractions.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\Microsoft.AspNetCore.Http.Features.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Buffers.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Memory.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\WebDriver.xml
+C:\Users\bodhi\source\repos\SpotifyAPI.NET Framework\SpotifyAPI.NET Framework\bin\Debug\SimpleTCP.dll
