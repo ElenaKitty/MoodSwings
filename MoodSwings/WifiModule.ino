@@ -20,6 +20,7 @@ String WifiModule::sendToWifi(String command, const int timeout, boolean debug)
   if(debug)
   {
     Serial.println(response);
+    
   }
   return response;
 } 
@@ -63,9 +64,5 @@ void WifiModule::checkInput()
       i++;      
       information.remove(0, part.length()+1);
     }  
-    Serial.println("Artist: " + artist);
-    Serial.println("Track: " + track);
-    Serial.println("Function: " + function);
-    Serial.println(Speed);
   }        
 }
