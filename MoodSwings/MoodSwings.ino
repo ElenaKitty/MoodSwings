@@ -1,4 +1,11 @@
 #include <SoftwareSerial.h>
+#include <RGBmatrixPanel.h>
+//#define CLK  8   
+//#define OE   9
+//#define LAT 10
+//#define A   A0
+//#define B   A1
+//#define C   A2
 
 const int previousPin = 4;
 const int playPin = 7;
@@ -12,14 +19,14 @@ int r = 0;
 int g = 0;
 int b = 0;
 
-String receiveVal;
-String prevAction = "";
-
 String artist;
 String track;
 String function;
+String prevAction ="";
 int Speed;
- 
+
+
+//RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 SoftwareSerial wifi(12, 11);
 
 bool DEBUG = true;   //show more logs
