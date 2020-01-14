@@ -7,22 +7,27 @@ namespace MoodSwing
     {
         static void Main(string[] args)
         {
-            ArduinoComs coms = new ArduinoComs();
-            SpotifyAuth auth = new SpotifyAuth();
+            SpotifyAPI spotify = new SpotifyAPI();
+            ArduinoComs coms = new ArduinoComs(spotify);
+            FilterClass filter = new FilterClass(spotify);
+            MuziekInfo muziek = new MuziekInfo(spotify, filter);
             String filepath = @"..\..\Resources\CurrentTrack.json";
             String input = "";
-            Console.WriteLine(auth.getAuth().Result);
-            SpotifyAPI spotify = new SpotifyAPI(auth.getAuth().Result);
             coms.Serverclientside_Load();
-            coms.Connect("172.20.10.2", "80");
+            //coms.Connect("172.20.10.2", "80");
+
             while (input != "stop")
             {
-                //input = Console.ReadLine();
+
+                input = Console.ReadLine();
+
                 if (input == "try")
                 {
-                    spotify.spotifyAPIRequest(filepath);
+                    spotify.spotifyAPIRequest(filepath).Wait();
+                    muziek.getData();
+                    Console.WriteLine(muziek.filterMusic());
+                    //coms.Send(muziek.filterMusic());
                     Console.WriteLine();
-
                 }
 
                 if (input == "connect")
@@ -41,12 +46,7 @@ namespace MoodSwing
                     coms.Send(Console.ReadLine());
                 }
 
-                if (coms.PlayerCmd != "")
-                {
-                    String command = coms.PlayerCmd;
-                    coms.PlayerCmd = "";
-                    spotify.playerControl(command);
-                }
+                spotify.playerControl(input);
             }
         }
     }

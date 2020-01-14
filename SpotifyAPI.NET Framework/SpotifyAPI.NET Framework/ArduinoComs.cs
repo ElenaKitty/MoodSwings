@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using SimpleTCP;
 
 namespace MoodSwing
@@ -10,7 +7,13 @@ namespace MoodSwing
     class ArduinoComs
     {
         SimpleTcpClient client;
+        SpotifyAPI spotify;
         private String playerCmd;
+
+        public ArduinoComs(SpotifyAPI spotify)
+        {
+            this.spotify = spotify;
+        }
         public void Serverclientside_Load()
         {
             client = new SimpleTcpClient();
@@ -20,26 +23,32 @@ namespace MoodSwing
 
         public void Connect(String IpAddress, String port)
         {
-            Console.WriteLine(IpAddress);
-            client.Connect(IpAddress, Convert.ToInt32(port));
+            try
+            {
+                client.Connect(IpAddress, Convert.ToInt32(port));
+            }
+            catch (System.Net.Sockets.SocketException e)
+            {
+                Console.WriteLine($"Couldn't connect to current socket: '{e}'");
+            }
+
         }
 
         private void Client_DataReceived(object sender, SimpleTCP.Message message)
         {
             message.ReplyLine(message.MessageString);
             playerCmd = message.MessageString;
+            if (playerCmd != "")
+            {
+
+                spotify.playerControl(playerCmd);
+                playerCmd = "";
+            }
         }
 
         public void Send(String message)
         {
             client.WriteLineAndGetReply(message, TimeSpan.FromSeconds(3));
         }
-
-        public String getPlayerCmd()
-        {
-            return playerCmd;
-        }
-
-        public String PlayerCmd { get { return playerCmd; } set { playerCmd = value; } }
     }
 }
