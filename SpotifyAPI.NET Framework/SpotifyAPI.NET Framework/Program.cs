@@ -10,43 +10,50 @@ namespace MoodSwing
             SpotifyAPI spotify = new SpotifyAPI();
             ArduinoComs coms = new ArduinoComs(spotify);
             FilterClass filter = new FilterClass(spotify);
-            MuziekInfo muziek = new MuziekInfo(spotify, filter);
+            MusicInfo muziek = new MusicInfo(spotify, filter);
             String filepath = @"..\..\Resources\CurrentTrack.json";
             String input = "";
             coms.Serverclientside_Load();
-            //coms.Connect("172.20.10.2", "80");
+            //coms.Connect("192.168.43.73", "80");
+            spotify.startTimer();
 
             while (input != "stop")
             {
-
-                input = Console.ReadLine();
-
-                if (input == "try")
+                //input = Console.ReadLine();
+                if (spotify.NewSong)
                 {
-                    spotify.spotifyAPIRequest(filepath).Wait();
+                    spotify.spotifyAPIRequest(filepath).Wait(); ;
                     muziek.getData();
                     Console.WriteLine(muziek.filterMusic());
-                    //coms.Send(muziek.filterMusic());
+                    coms.Send(muziek.filterMusic());
                     Console.WriteLine();
                 }
 
-                if (input == "connect")
-                {
-                    Console.Write("IpAddress: ");
-                    String ipAddress = Console.ReadLine();
-                    Console.Write("Port: ");
-                    String port = Console.ReadLine();
+                //if (input == "try")
+                //{
+                //    spotify.spotifyAPIRequest(filepath).Wait(); ;
+                //    muziek.getData();
+                //    Console.WriteLine(muziek.filterMusic());
+                //    coms.Send(muziek.filterMusic());
+                //    Console.WriteLine();
+                //}
 
-                    coms.Connect(ipAddress, port);
-                }
+                //if (input == "connect")
+                //{
+                //    Console.Write("ipaddress: ");
+                //    string ipaddress = Console.ReadLine();
+                //    Console.Write("port: ");
+                //    string port = Console.ReadLine();
 
-                if (input == "send")
-                {
-                    Console.Write("send: ");
-                    coms.Send(Console.ReadLine());
-                }
+                //    coms.Connect(ipaddress, port);
+                //}
 
-                spotify.playerControl(input);
+                //if (input == "send")
+                //{
+                //    Console.Write("send: ");
+                //    coms.Send(Console.ReadLine());
+                //}
+                //spotify.playerControl(input).Wait();
             }
         }
     }

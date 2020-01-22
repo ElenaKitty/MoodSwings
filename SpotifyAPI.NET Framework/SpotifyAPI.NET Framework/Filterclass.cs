@@ -28,17 +28,18 @@ namespace MoodSwing
             BPM = (int)Math.Round(bpmData);
             double beatspeed;
             beatspeed = 1 / BPM * 60;
+            beatspeed = Math.Round(beatspeed * 100.0);
             return beatspeed;
         }
 
-        public string Energiefilter()
+        public string energyFilter()
         {
             double energy;
             energy = spotify.getData("energy");
             string Energiecategorie;
             if (energy >= lowEnergy && energy <= highEnergy)
             {
-                Energiecategorie = "fade";
+                Energiecategorie = "random";
             }
             else if (energy > highEnergy)
             {
@@ -46,17 +47,34 @@ namespace MoodSwing
             }
             else
             {
-                Energiecategorie = "slide";
+                Energiecategorie = "fade";
             }
 
             return Energiecategorie;
         }
 
-        public string Valencefilter()
+        public string valencefilter()
         {
             double valence;
             valence = spotify.getData("valence");
             string Valencecategorie;
+            if (energyFilter() == "fade")
+            {
+                if (valence >= lowValence && valence <= highValence)
+                {
+                    Valencecategorie = "teal/orange";
+                }
+                else if (valence > highValence)
+                {
+                    Valencecategorie = "red/yellow";
+                }
+                else
+                {
+                    Valencecategorie = "blue/purple";
+                }
+                return Valencecategorie;
+            }
+
             if (valence >= lowValence && valence <= highValence)
             {
                 Valencecategorie = "blue";

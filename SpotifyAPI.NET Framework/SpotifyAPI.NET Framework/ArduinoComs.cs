@@ -14,6 +14,7 @@ namespace MoodSwing
         {
             this.spotify = spotify;
         }
+
         public void Serverclientside_Load()
         {
             client = new SimpleTcpClient();
@@ -29,7 +30,7 @@ namespace MoodSwing
             }
             catch (System.Net.Sockets.SocketException e)
             {
-                Console.WriteLine($"Couldn't connect to current socket: '{e}'");
+                Console.WriteLine($"Couldn't connect to current socket: '{e}'\n");
             }
 
         }
@@ -48,7 +49,14 @@ namespace MoodSwing
 
         public void Send(String message)
         {
-            client.WriteLineAndGetReply(message, TimeSpan.FromSeconds(3));
+            try
+            {
+                client.WriteLineAndGetReply(message, TimeSpan.FromSeconds(3));
+            }
+            catch (System.Exception e)
+            {
+                Console.WriteLine($"Nothing to send to '{e}'\n");
+            }
         }
     }
 }

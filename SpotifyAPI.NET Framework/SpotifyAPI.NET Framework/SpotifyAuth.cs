@@ -16,7 +16,7 @@ namespace MoodSwing
 
         IWebDriver driver = new ChromeDriver();
         JsonSerializer serializer = new JsonSerializer();
-        public async Task<String> requestAuth()
+        private async Task<String> requestAuth()
         {
             String authToken = "No token received";
             driver.Navigate().GoToUrl(authorizationUrl);

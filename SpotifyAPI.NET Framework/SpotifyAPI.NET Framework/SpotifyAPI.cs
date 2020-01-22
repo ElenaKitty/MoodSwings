@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading;
+using System.Timers;
 
 namespace MoodSwing
 {
@@ -15,8 +17,13 @@ namespace MoodSwing
     {
         JsonSerializer serializer = new JsonSerializer();
         SpotifyAuth auth = new SpotifyAuth();
+        System.Timers.Timer timer = new System.Timers.Timer();
+        Mutex mutex = new Mutex();
+        Mutex mutexTest = new Mutex();
 
         private String OAuth;
+        private String songID = "";
+        public bool NewSong { get; set; }
         private String urlPlaying = "https://api.spotify.com/v1/me/player/currently-playing?market=NL";
         private String urlTrack = "https://api.spotify.com/v1/audio-features/";
         private String urlAnalysis = "https://api.spotify.com/v1/audio-analysis/";
@@ -44,14 +51,13 @@ namespace MoodSwing
                         String myContent = await content.ReadAsStringAsync();
                         using (StreamWriter file = File.CreateText(@"..\..\Resources\CurrentTrack.json"))
                         {
+                            JObject currentTrackJson = JObject.Parse(myContent);
+                            dynamic currentTrackData = currentTrackJson;
+                            Console.WriteLine("Artist name: " + currentTrackData.item.artists[0].name);
+                            Console.WriteLine("Track name: " + currentTrackData.item.name);
+
                             if (myContent != "")
                             {
-                                JObject currentTrackJson = JObject.Parse(myContent);
-                                dynamic currentTrackData = currentTrackJson;
-                                String name = currentTrackData.item.album.artists[0].name;
-                                Console.WriteLine("Artist name: " + name);
-                                name = currentTrackData.item.name;
-                                Console.WriteLine("Track name: " + name);
                                 serializer.Serialize(file, currentTrackJson);
                             }
                         }
@@ -63,11 +69,12 @@ namespace MoodSwing
         // This method makes a http request to get the track features.
         public async Task getTrackFeatures(String filepath)
         {
+            dynamic currentTrackData;
+            String id = "";
             using (StreamReader file = File.OpenText(filepath))
             {
                 JObject currentTrackJson = (JObject)serializer.Deserialize(file, typeof(JObject));
-                dynamic currentTrackData = currentTrackJson;
-                String id = "";
+                currentTrackData = currentTrackJson;
                 try
                 {
                     id = currentTrackData.item.id;
@@ -76,24 +83,25 @@ namespace MoodSwing
                 {
                     Console.WriteLine($"No current track to analyse: '{e}'\n");
                 }
-                using (HttpClient client = new HttpClient())
+            }
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", OAuth);
+                using (HttpResponseMessage response = await client.GetAsync(urlTrack + id))
                 {
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", OAuth);
-                    using (HttpResponseMessage response = await client.GetAsync(urlTrack + id))
+                    using (HttpContent content = response.Content)
                     {
-                        using (HttpContent content = response.Content)
-                        {
-                            String myContent = await content.ReadAsStringAsync();
+                        String myContent = await content.ReadAsStringAsync();
+                        JObject trackFeaturesJson = JObject.Parse(myContent);
+                        dynamic trackFeaturesData = trackFeaturesJson;
+                        Console.WriteLine("Danceability: " + trackFeaturesData.danceability);
+                        Console.WriteLine("Energy: " + trackFeaturesData.energy);
+                        Console.WriteLine("BPM: " + trackFeaturesData.tempo);
+                        Console.WriteLine("Loudness: " + trackFeaturesData.loudness);
 
-                            using (StreamWriter newFile = File.CreateText(@"..\..\Resources\TrackFeatures.json"))
-                            {
-                                JObject trackFeaturesJson = JObject.Parse(myContent);
-                                dynamic trackFeaturesData = trackFeaturesJson;
-                                Console.WriteLine("Danceability: " + trackFeaturesData.danceability);
-                                Console.WriteLine("Energy: " + trackFeaturesData.energy);
-                                Console.WriteLine("BPM: " + trackFeaturesData.tempo);
-                                serializer.Serialize(newFile, trackFeaturesJson);
-                            }
+                        using (StreamWriter newFile = File.CreateText(@"..\..\Resources\TrackFeatures.json"))
+                        {
+                            serializer.Serialize(newFile, trackFeaturesJson);
                         }
                     }
                 }
@@ -103,11 +111,12 @@ namespace MoodSwing
         // This method makes a http request to get the track analysis.
         public async Task getTrackAnalysis(String filepath)
         {
+            dynamic currentTrackData;
+            String id = "";
             using (StreamReader file = File.OpenText(filepath))
             {
                 JObject currentTrackJson = (JObject)serializer.Deserialize(file, typeof(JObject));
-                dynamic currentTrackData = currentTrackJson;
-                String id = "";
+                currentTrackData = currentTrackJson;
                 try
                 {
                     id = currentTrackData.item.id;
@@ -116,28 +125,28 @@ namespace MoodSwing
                 {
                     Console.WriteLine($"No current track to analyse: '{e}'\n");
                 }
-                using (HttpClient client = new HttpClient())
+            }
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", OAuth);
+                using (HttpResponseMessage response = await client.GetAsync(urlAnalysis + id))
                 {
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", OAuth);
-                    using (HttpResponseMessage response = await client.GetAsync(urlAnalysis + id))
+                    using (HttpContent content = response.Content)
                     {
-                        using (HttpContent content = response.Content)
+                        String myContent = await content.ReadAsStringAsync();
+                        JObject trackAnalysisJson = new JObject();
+                        try
                         {
-                            String myContent = await content.ReadAsStringAsync();
-                            using (StreamWriter newFile = File.CreateText(@"..\..\Resources\TrackAnalysis.json"))
-                            {
-                                JObject trackAnalysisJson = new JObject();
-                                try
-                                {
-                                    JObject.Parse(myContent);
-                                }
-                                catch (JsonReaderException e)
-                                {
-                                    Console.WriteLine($"No content to convert to json: '{e}'\n");
-                                }
-                                dynamic trackAnalysisData = trackAnalysisJson;
-                                serializer.Serialize(newFile, trackAnalysisJson);
-                            }
+                            trackAnalysisJson = JObject.Parse(myContent);
+                        }
+                        catch (JsonReaderException e)
+                        {
+                            Console.WriteLine($"No content to convert to json: '{e}'\n");
+                        }
+                        Console.WriteLine("heyo");
+                        using (StreamWriter newFile = File.CreateText(@"..\..\Resources\TrackAnalysis.json"))
+                        {
+                            serializer.Serialize(newFile, trackAnalysisJson);
                         }
                     }
                 }
@@ -160,10 +169,10 @@ namespace MoodSwing
                         using (HttpContent content = response.Content)
                         {
                             String myContent = await content.ReadAsStringAsync();
+                            JObject artistJson = JObject.Parse(myContent);
+                            dynamic artistData = artistJson;
                             using (StreamWriter newFile = File.CreateText(@"..\..\Resources\Artist.json"))
                             {
-                                JObject artistJson = JObject.Parse(myContent);
-                                dynamic artistData = artistJson;
                                 serializer.Serialize(newFile, artistJson);
                             }
                         }
@@ -182,23 +191,47 @@ namespace MoodSwing
                     using (HttpContent content = response.Content)
                     {
                         String myContent = await content.ReadAsStringAsync();
+                        JObject playbackJson = new JObject();
+                        try
+                        {
+                            playbackJson = JObject.Parse(myContent);
+                        }
+                        catch (JsonReaderException e)
+                        {
+                            Console.WriteLine($"Spotify player not recognised: '{e}'\n");
+                        }
+                        dynamic playbackData = playbackJson;
+                        mutex.WaitOne();
                         using (StreamWriter newFile = File.CreateText(@"..\..\Resources\Playback.json"))
                         {
-                            JObject playbackJson = new JObject();
-                            try
-                            {
-                                playbackJson = JObject.Parse(myContent);
-                            }
-                            catch (JsonReaderException e)
-                            {
-                                Console.WriteLine($"Spotify player not recognised: '{e}'\n");
-                            }
-                            dynamic playbackData = playbackJson;
                             serializer.Serialize(newFile, playbackJson);
                         }
+                        mutex.ReleaseMutex();
                     }
                 }
             }
+        }
+
+        public String currentID()
+        {
+            String id = "";
+            JObject playbackJson;
+            mutex.WaitOne();
+            using (StreamReader file = File.OpenText(@"..\..\Resources\Playback.json"))
+            {
+                playbackJson = (JObject)serializer.Deserialize(file, typeof(JObject));
+            }
+            mutex.ReleaseMutex();
+            dynamic playbackData = playbackJson;
+            try
+            {
+                id = playbackData.item.id;
+            }
+            catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException e)
+            {
+                Console.WriteLine($"Json file is empty: '{e}'\n");
+            }
+            return id;
         }
 
         public async Task pauseTrack()
@@ -237,44 +270,46 @@ namespace MoodSwing
             }
         }
 
-        public async void playerControl(String control)
+        public void playerControl(String control)
         {
-            await currentPlayback();
+            JObject playbackJson;
+            mutex.WaitOne();
             using (StreamReader playbackFile = File.OpenText(@"..\..\Resources\Playback.json"))
             {
-                JObject playbackJson = (JObject)serializer.Deserialize(playbackFile, typeof(JObject));
-                dynamic playbackData = playbackJson;
-                switch (control)
-                {
-                    case "Resume/Pause":
-                        try
-                        {
-                            bool resume = playbackData.is_playing;
-                            if (resume)
-                            {
-                                await pauseTrack();
-                            }
-                            else
-                            {
-                                await resumeTrack();
-                            }
-                        }
-                        catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException)
-                        {
-
-                        }
-                        break;
-
-                    case "Next":
-                        await nextTrack();
-                        break;
-
-                    case "Previous":
-                        await previousTrack();
-                        break;
-                }
+                playbackJson = (JObject)serializer.Deserialize(playbackFile, typeof(JObject));
             }
+            mutex.ReleaseMutex();
+            dynamic playbackData = playbackJson;
+            switch (control)
+            {
+                case "Resume/Pause":
+                    try
+                    {
+                        bool resume = playbackData.is_playing;
+                        if (resume)
+                        {
+                            pauseTrack().Wait();
+                        }
+                        else
+                        {
+                            resumeTrack().Wait();
+                        }
+                    }
+                    catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException)
+                    {
+                        int i = 0;
+                        i++;
+                    }
+                    break;
 
+                case "Next":
+                    nextTrack().Wait();
+                    break;
+
+                case "Previous":
+                    previousTrack().Wait();
+                    break;
+            }
         }
 
         // this method runs all the above mentioned methods.
@@ -327,6 +362,41 @@ namespace MoodSwing
                 }
             }
             return returnable;
+        }
+
+        public void startTimer()
+        {
+            timer.Elapsed += new ElapsedEventHandler(timeEvent);
+            timer.Interval = 1000;
+            timer.Start();
+        }
+
+        public void stopTimer()
+        {
+            timer.Elapsed += null;
+            timer.Stop();
+        }
+
+        public void timeEvent(object source, ElapsedEventArgs e)
+        {
+            timer.Stop();
+            try
+            {
+                currentPlayback().Wait();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine($"Can't open two instances of a file: '{error}'\n");
+            }
+            string currentId = currentID();
+            if (currentId != songID)
+            {
+                songID = currentId;
+                NewSong = true;
+                Thread.Sleep(50);
+            }
+            NewSong = false;
+            timer.Start();
         }
     }
 }

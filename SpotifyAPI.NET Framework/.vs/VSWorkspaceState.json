@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\SpotifyAPI.NET Framework"
+    "\\SpotifyAPI.NET Framework",
+    "\\SpotifyAPI.NET Framework\\Resources"
   ],
-  "SelectedNode": "\\SpotifyAPI.NET Framework\\ArduinoComs.cs",
+  "SelectedNode": "\\SpotifyAPI.NET Framework\\Resources\\CurrentTrack.json",
   "PreviewInSolutionExplorer": false
 }
