@@ -1,3 +1,4 @@
+
 LightEffects::LightEffects()
 {
 
@@ -10,7 +11,8 @@ void LightEffects::drawVertical(int x, uint16_t color)
     matrix.drawPixel(x, i, color);
   }
 }
-void LightEffects::waveLeds(uint16_t color)
+
+void LightEffects::waveLeds()
 {
   if (waveColumn == 39)
   {
@@ -96,16 +98,18 @@ void LightEffects::snakeLeds()
 
 void LightEffects::randomLeds()
 {
-  matrix.fillScreen(0);
-  for (int i = 0; i < 16 * 8; i++)
-  {
-    int x = random(0, 32);
-    int y = random(0, 16);
-    int color = random(0, 6);
-    matrix.drawPixel(x, y, rainbow[color]);
-    matrix.swapBuffers(true);
-  }
 
+  if (i >= 137)
+  {
+    i = 0;
+    matrix.fillScreen(0);
+  }
+  int x = random(0, 32);
+  int y = random(0, 16);
+  int color = random(0, 6);
+  matrix.drawPixel(x, y, rainbow[color]);
+  matrix.swapBuffers(true);
+  i++;
 }
 
 void LightEffects::blinkLeds(uint16_t color)
@@ -124,6 +128,6 @@ void LightEffects::blinkLeds(uint16_t color)
 void LightEffects::fadeColors()
 {
   matrix.fillScreen(matrix.ColorHSV(hue, saturation, value, false));
-  hue += 5;
+  hue += 20;
   if (hue >= 1536) hue -= 1536;
 }

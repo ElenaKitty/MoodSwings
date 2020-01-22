@@ -42,11 +42,13 @@ unsigned long previousMillis = 0;
 unsigned long previousBlinkMillis = 0;
 unsigned long previousSnakeMillis = 0;
 unsigned long previousWaveMillis = 0;
+unsigned long previousRandomMillis = 0;
 
-unsigned long interval = 5;
-unsigned long snakeInterval = 20;
-unsigned long blinkInterval = 100;
-unsigned long waveInterval = 20;
+unsigned long interval = 0; //5
+unsigned long snakeInterval = 0; //20
+unsigned long blinkInterval = 0; //100
+unsigned long waveInterval = 0; //20
+unsigned long randomInterval = 0; //1
 
 bool redBlink = false;
 bool blueBlink = false;
@@ -60,7 +62,7 @@ class LightEffects
 {
   public:
     LightEffects();
-    void waveLeds(uint16_t color);
+    void waveLeds();
     void snakeLeds();
     void randomLeds();
     void blinkLeds(uint16_t color);
@@ -85,6 +87,7 @@ void loop()
 {
   currentMillis = millis();
   receiveSerial();
+
   if (received != "")
   {
     Serial.println("Received: " + received);
@@ -137,9 +140,8 @@ void loop()
     randoming = false;
     waveing = false;
   }
-  else if (received == "fade" || (fading && received == ""))
+  else if (received.indexOf("fade") > -1 || (fading && received == ""))
   {
-    Serial.println("fading");
     fading = true;
     received = "";
     blinking = false;
@@ -152,7 +154,7 @@ void loop()
       effects.fadeColors();
     }
   }
-  else if (received == "snake" || (snaking && received == ""))
+  else if (received.indexOf("snake") > -1 || (snaking && received == ""))
   {
     snaking = true;
     fading = false;
@@ -162,59 +164,127 @@ void loop()
     effects.snakeLeds();
     received = "";
   }
-  else if (received == "random" || (randoming && received == ""))
+  else if (received.indexOf("random") > -1 || (randoming && received == ""))
   {
+    received = "";
     snaking = false;
     fading = false;
     blinking = false;
     randoming = true;
     waveing = false;
-    effects.randomLeds();
-    received = "";
+    if(currentMillis - previousRandomMillis > randomInterval)
+    {
+      previousRandomMillis = currentMillis;
+      effects.randomLeds();
+    }
   }
-  else if (received == "wave" || (waveing && received == ""))
+  else if (received.indexOf("wave") > -1 || (waveing && received == ""))
   {
     snaking = false;
     fading = false;
     blinking = false;
     randoming = false;
     waveing = true;
-    effects.waveLeds(red);
+    effects.waveLeds();
     received = "";
   }
 }
 
 void receiveEvent(int howMany)
 {
-  if (Wire.available() > 0)
-  {
-    matrix.fillScreen(matrix.Color888(0, 0, 0));
-  }
-  while (0 < Wire.available()) // loop through all but the last
+  matrix.fillScreen(0);
+  while (Wire.available() > 0) // loop through all but the last
   {
     char c = Wire.read(); // receive byte as a character
     received += c;
+    Serial.println(received);
+  }
+  int beginInput = received.indexOf('#');
+  int endInput = received.indexOf('~');
+  String information = received.substring(beginInput + 1, endInput);
+  String part = "";
+  String function = "";
+  int i = 0;
+  while (information.indexOf('^') != -1)
+  {
+    part = information.substring(0, information.indexOf('^'));
+    if (i == 0)
+    {
+      function = part;
+    }
+    if (i == 1)
+    {
+      if (function == "blink")
+      {
+        blinkInterval = part.toInt();
+      }
+      else if (function == "fade")
+      {
+        interval = part.toInt();
+      }
+      else if (function == "snake")
+      {
+        snakeInterval = part.toInt();
+      }
+      else if (function == "random")
+      {
+        randomInterval = part.toInt();
+      }
+      else if (function == "wave")
+      {
+        waveInterval = part.toInt();
+      }
+    };
+    i++;
+    information.remove(0, part.length() + 1);
   }
 }
 
 void receiveSerial()
 {
-  if (Serial.available() > 0)
-  {
-    matrix.fillScreen(matrix.Color888(0, 0, 0));
-  }
   while (0 < Serial.available()) // loop through all but the last
   {
     char c = Serial.read(); // receive byte as a character
     received += c;
+    Serial.println(received);
   }
-}
-
-void softwareReset( uint8_t prescaller) {
-  // start watchdog with the provided prescaller
-  wdt_enable( prescaller);
-  // wait for the prescaller time to expire
-  // without sending the reset signal by using
-  // the wdt_reset() method
-  while (1) {}
+  int beginInput = received.indexOf('#');
+  int endInput = received.indexOf('~');
+  String information = received.substring(beginInput + 1, endInput);
+  String part = "";
+  String function = "";
+  int i = 0;
+  while (information.indexOf('^') != -1)
+  {
+    part = information.substring(0, information.indexOf('^'));
+    if (i == 0)
+    {
+      function = part;
+    }
+    if (i == 1)
+    {
+      if (function == "blink")
+      {
+        blinkInterval = part.toInt();
+      }
+      else if (function == "fade")
+      {
+        interval = part.toInt();
+      }
+      else if (function == "snake")
+      {
+        snakeInterval = part.toInt();
+      }
+      else if (function == "random")
+      {
+        randomInterval = part.toInt();
+      }
+      else if (function == "wave")
+      {
+        waveInterval = part.toInt();
+      }
+    };
+    i++;
+    information.remove(0, part.length() + 1);
+  }
 }
