@@ -56,7 +56,7 @@ namespace MoodSwing
             String sendString = "";
             if (succeeded)
             {
-                sendString = "#" + Artiest + "^" + Track + "^" + filter.energyFilter() + "^" + filter.BPMformula() + "^" + filter.valencefilter() + "^$";
+                sendString = "#" + Artiest + "^" + Track + "^" + filter.energyFilter() + "^" + filter.BPMformula() + "^" + filter.valencefilter() + "^~";
             }
             return sendString;
         }

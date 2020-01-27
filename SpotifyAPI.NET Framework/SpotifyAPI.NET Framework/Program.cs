@@ -14,7 +14,7 @@ namespace MoodSwing
             String filepath = @"..\..\Resources\CurrentTrack.json";
             String input = "";
             coms.Serverclientside_Load();
-            //coms.Connect("192.168.43.73", "80");
+            coms.Connect("192.168.43.73", "80");
             spotify.startTimer();
 
             while (input != "stop")

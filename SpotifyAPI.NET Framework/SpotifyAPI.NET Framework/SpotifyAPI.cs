@@ -359,6 +359,9 @@ namespace MoodSwing
                     case "valence":
                         returnable = trackFeaturesData.valence;
                         break;
+                    case "loudness":
+                        returnable = trackFeaturesData.loudness;
+                        break;
                 }
             }
             return returnable;

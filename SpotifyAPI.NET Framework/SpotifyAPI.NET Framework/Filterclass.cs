@@ -35,11 +35,17 @@ namespace MoodSwing
         public string energyFilter()
         {
             double energy;
+            double loudness;
             energy = spotify.getData("energy");
+            loudness = spotify.getData("loudness");
             string Energiecategorie;
-            if (energy >= lowEnergy && energy <= highEnergy)
+            if (energy >= lowEnergy && energy <= highEnergy && loudness >= -10)
             {
                 Energiecategorie = "random";
+            }
+            else if (energy >= lowEnergy && energy <= highEnergy && loudness < -10)
+            {
+                Energiecategorie = "wave";
             }
             else if (energy > highEnergy)
             {
